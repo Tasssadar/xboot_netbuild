@@ -131,11 +131,11 @@ function buttonTransition(clicked_btn, start) {
         b.disabled = start;
 
         if(btns[i] == clicked_btn) {
-            var i = document.getElementById(btns[i] + "-icon");
+            var ic = document.getElementById(btns[i] + "-icon");
             if(start)
-                i.className = i.className + " icon-spin";
+                ic.className = ic.className + " icon-spin";
             else
-                i.className = i.className.replace(" icon-spin", "");
+                ic.className = ic.className.replace(" icon-spin", "");
         }
     }
 }
