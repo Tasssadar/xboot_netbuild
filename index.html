@@ -4,18 +4,19 @@
     <title>xboot_netbuild</title>
     <link href="style.css" rel="stylesheet">
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.1/pure-min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
   </head>
   <body>
     <div class="content">
     <h1>XBoot builder</h1>
-    <form class="pure-form pure-form-aligned">
     <div class="pure-g">
+    <form id="xboot-cfg-form" class="pure-form pure-form-aligned" onsubmit="return onFormSubmit()" method="POST">
       <fieldset>
         <div class="pure-u-1-2 form-col">
           <legend>General</legend>
           <div class="pure-control-group">
             <label for="MCU">Chip:</label>
-            <select if="MCU">
+            <select id="MCU" name="MCU">
               <option value="atxmega32a4">atxmega32a4</option>
               <option value="atxmega16a4">atxmega16a4</option>
             </select>
@@ -27,7 +28,7 @@
           </div>
           <div class="pure-control-group" title="Watchdog resets the chip if bootloader gets stuck">
             <label for="WATCHDOG_TIMEOUT">Watchdog timeout: </label>
-            <select id="WATCHDOG_TIMEOUT">
+            <select id="WATCHDOG_TIMEOUT" name="WATCHDOG_TIMEOUT">
               <option value="WDT_NONE">Disable</option>
               <option value="WDT_PER_8CLK_gc">WDT_PER_8CLK_gc (~8ms)</option>
               <option value="WDT_PER_16CLK_gc">WDT_PER_16CLK_gc (~16ms)</option>
@@ -44,47 +45,44 @@
           </div>
           <div class="pure-controls">
               <label for="LOCK_SPM_ON_EXIT" class="pure-checkbox" title="Locks self-programming instructions on bootloader exit.">
-                <input id="LOCK_SPM_ON_EXIT" name="LOCK_SPM_ON_EXIT" type="checkbox"> Lock SPM instructions on bootloader exit
+                <input id="LOCK_SPM_ON_EXIT" name="LOCK_SPM_ON_EXIT" type="checkbox" value="yes"> Lock SPM instructions on bootloader exit
               </label>
               <label for="USE_INTERRUPTS" class="pure-checkbox" title="Not recommended - incerases code size and does not offer much advantage.">
-                <input id="USE_INTERRUPTS" name="USE_INTERRUPTS" type="checkbox"> Use interrupts for serial communication
+                <input id="USE_INTERRUPTS" name="USE_INTERRUPTS" type="checkbox" value="yes"> Use interrupts for serial communication
               </label>
               <label for="ENABLE_BLOCK_SUPPORT" class="pure-checkbox" title="Block operations are faster.">
-                <input id="ENABLE_BLOCK_SUPPORT" name="ENABLE_BLOCK_SUPPORT" type="checkbox" checked> Enable memory block operations
+                <input id="ENABLE_BLOCK_SUPPORT" name="ENABLE_BLOCK_SUPPORT" type="checkbox" value="yes" checked> Enable memory block operations
               </label>
               <label for="ENABLE_FLASH_BYTE_SUPPORT" class="pure-checkbox" title="Block operations are faster.">
-                <input id="ENABLE_FLASH_BYTE_SUPPORT" name="ENABLE_FLASH_BYTE_SUPPORT" type="checkbox" checked> Enable flash byte operations
+                <input id="ENABLE_FLASH_BYTE_SUPPORT" name="ENABLE_FLASH_BYTE_SUPPORT" type="checkbox" value="yes" checked> Enable flash byte operations
               </label>
               <label for="ENABLE_FLASH_ERASE_WRITE" class="pure-checkbox" title=". This allows the device to be reprogrammed without a complete erase sequence.">
-                <input id="ENABLE_FLASH_ERASE_WRITE" name="ENABLE_FLASH_ERASE_WRITE" type="checkbox" checked> Erase each page before writing.
+                <input id="ENABLE_FLASH_ERASE_WRITE" name="ENABLE_FLASH_ERASE_WRITE" type="checkbox" value="yes" checked> Erase each page before writing.
               </label>
               <label for="ENABLE_FUSE_BITS" class="pure-checkbox">
-                <input id="ENABLE_FUSE_BITS" name="ENABLE_FUSE_BITS" type="checkbox" checked> Enable fuse bits reading (Xmega only)
+                <input id="ENABLE_FUSE_BITS" name="ENABLE_FUSE_BITS" type="checkbox" value="yes" checked> Enable fuse bits reading (Xmega only)
               </label>
               <label for="ENABLE_LOCK_BITS" class="pure-checkbox">
-                <input id="ENABLE_LOCK_BITS" name="ENABLE_LOCK_BITS" type="checkbox" checked> Enable lock bits reading and writing (Xmega only)
-              </label>
-              <label for="ENABLE_FUSE_BITS" class="pure-checkbox">
-                <input id="ENABLE_FUSE_BITS" name="ENABLE_FUSE_BITS" type="checkbox" checked> Enable fuse bits reading (Xmega only)
+                <input id="ENABLE_LOCK_BITS" name="ENABLE_LOCK_BITS" type="checkbox" value="yes" checked> Enable lock bits reading and writing (Xmega only)
               </label>
               <label for="ENABLE_CRC_SUPPORT" class="pure-checkbox" title="Enables commands for computing the CRC of various sections of Flash memory.">
-                <input id="ENABLE_CRC_SUPPORT" name="ENABLE_CRC_SUPPORT" type="checkbox" checked> Enable commands for computing flash's CRC
+                <input id="ENABLE_CRC_SUPPORT" name="ENABLE_CRC_SUPPORT" type="checkbox" value="yes" checked> Enable commands for computing flash's CRC
               </label>
           </div>
 
           <legend>API support</legend>
           <div class="pure-controls">
               <label for="ENABLE_API" class="pure-checkbox">
-                <input id="ENABLE_API" name="ENABLE_API" type="checkbox" onchange="onApiEnableChanged()"> Enable xboot API
+                <input id="ENABLE_API" name="ENABLE_API" type="checkbox" value="yes" onchange="onApiEnableChanged()"> Enable xboot API
               </label>
               <label for="ENABLE_API_LOW_LEVEL_FLASH" class="pure-checkbox">
-                <input id="ENABLE_API_LOW_LEVEL_FLASH" name="ENABLE_API_LOW_LEVEL_FLASH" type="checkbox" onchange="onApiEnableChanged()"> Enable low-level flash APIs
+                <input id="ENABLE_API_LOW_LEVEL_FLASH" name="ENABLE_API_LOW_LEVEL_FLASH" type="checkbox" value="yes" onchange="onApiEnableChanged()"> Enable low-level flash APIs
               </label>
               <label for="ENABLE_API_SPM_WRAPPER" class="pure-checkbox">
-                <input id="ENABLE_API_SPM_WRAPPER" name="ENABLE_API_SPM_WRAPPER" type="checkbox"> Enable SPM wrapper API
+                <input id="ENABLE_API_SPM_WRAPPER" name="ENABLE_API_SPM_WRAPPER" type="checkbox" value="yes"> Enable SPM wrapper API
               </label>
               <label for="ENABLE_API_FIRMWARE_UPDATE" class="pure-checkbox">
-                <input id="ENABLE_API_FIRMWARE_UPDATE" name="ENABLE_API_FIRMWARE_UPDATE" type="checkbox"> Enable firmware update APIs
+                <input id="ENABLE_API_FIRMWARE_UPDATE" name="ENABLE_API_FIRMWARE_UPDATE" type="checkbox" value="yes"> Enable firmware update APIs
               </label>
           </div>
 
@@ -94,7 +92,7 @@
           <div class="pure-control-group">
             <label for="USE_ENTER_DELAY">Use enter delay:</label>
             <label for="USE_ENTER_DELAY" class="pure-checkbox" style="text-align: left">
-              <input id="USE_ENTER_DELAY" name="USE_ENTER_DELAY" type="checkbox" onchange="onUseEntryDelayChanged()"> Enable
+              <input id="USE_ENTER_DELAY" name="USE_ENTER_DELAY" type="checkbox" value="yes" onchange="onUseEntryDelayChanged()"> Enable
             </label>
           </div>
           <div class="pure-control-group">
@@ -112,12 +110,12 @@
           <div class="pure-control-group">
             <label for="USE_ENTER_PIN">Enter Xboot by pin:</label>
             <label for="USE_ENTER_PIN" class="pure-checkbox" style="text-align: left">
-              <input id="USE_ENTER_PIN" name="USE_ENTER_PIN" type="checkbox" onchange="onUseEntryPinChanged()"> Enable
+              <input id="USE_ENTER_PIN" name="USE_ENTER_PIN" type="checkbox" value="yes" onchange="onUseEntryPinChanged()"> Enable
             </label>
           </div>
           <div class="pure-control-group">
             <label for="ENTER_PIN_PORT">Pin:</label>
-            <input id="ENTER_PIN_PORT" name="ENTER_PIN_PORT" value="PC0" size="3">
+            <input id="ENTER_PIN_PORT" name="pinport-ENTER-PORT_NAME-PIN" value="PC0" size="3">
           </div>
           <div class="pure-control-group">
             <label>Pin state:</label>
@@ -133,7 +131,7 @@
           <div class="pure-control-group">
             <label for="ENTER_PIN_PUEN">Pull-up resistor on the pin:</label>
             <label for="ENTER_PIN_PUEN" class="pure-checkbox" style="text-align: left">
-              <input id="ENTER_PIN_PUEN" name="ENTER_PIN_PUEN" type="checkbox" checked> Enable
+              <input id="ENTER_PIN_PUEN" name="ENTER_PIN_PUEN" type="checkbox" value="yes" checked> Enable
             </label>
           </div>
 
@@ -141,13 +139,13 @@
           <div class="pure-control-group">
             <label for="USE_UART">Use UART communication:</label>
             <label for="USE_UART" class="pure-checkbox" style="text-align: left">
-              <input id="USE_UART" name="USE_UART" type="checkbox" onchange="onUseUARTChanged()" checked> Enable
+              <input id="USE_UART" name="USE_UART" type="checkbox" value="yes" onchange="onUseUARTChanged()" checked> Enable
             </label>
           </div>
           <div class="pure-control-group">
             <label for="UART_RX_PUEN">Pull-up resistor for RX pin:</label>
             <label for="UART_RX_PUEN" class="pure-checkbox" style="text-align: left">
-              <input id="UART_RX_PUEN" name="UART_RX_PUEN" type="checkbox" checked> Enable
+              <input id="UART_RX_PUEN" name="UART_RX_PUEN" type="checkbox" value="yes" checked> Enable
             </label>
           </div>
           <div class="pure-control-group">
@@ -165,13 +163,13 @@
           <div class="pure-control-group">
             <label for="USE_ENTER_UART">Trigger bootloader:</label>
             <label for="USE_ENTER_UART" class="pure-checkbox" style="text-align: left">
-              <input id="USE_ENTER_UART" name="USE_ENTER_UART" type="checkbox" onchange="onUseUARTChanged()" checked> Enable
+              <input id="USE_ENTER_UART" name="USE_ENTER_UART" type="checkbox" value="yes" onchange="onUseUARTChanged()" checked> Enable
             </label>
           </div>
           <div class="pure-control-group">
             <label for="ENTER_UART_NEED_SYNC">Require 0x1B char to trigger:</label>
             <label for="ENTER_UART_NEED_SYNC" class="pure-checkbox" style="text-align: left">
-              <input id="ENTER_UART_NEED_SYNC" name="ENTER_UART_NEED_SYNC" type="checkbox"> Enable
+              <input id="ENTER_UART_NEED_SYNC" name="ENTER_UART_NEED_SYNC" type="checkbox" value="yes"> Enable
             </label>
           </div>
 
@@ -179,22 +177,36 @@
           <div class="pure-control-group">
             <label for="USE_LED">Use status LED:</label>
             <label for="USE_LED" class="pure-checkbox" style="text-align: left">
-              <input id="USE_LED" name="USE_LED" type="checkbox" onchange="onUseLEDChanged()"> Enable
+              <input id="USE_LED" name="USE_LED" type="checkbox" value="yes" onchange="onUseLEDChanged()"> Enable
             </label>
           </div>
           <div class="pure-control-group">
             <label for="LED_PORT_PIN">LED pin and port:</label>
-            <input id="LED_PORT_PIN" name="LED_PORT_PIN" value="PA0" size="3">
+            <input id="LED_PORT_PIN" name="pinport-LED-PORT_NAME-PIN" value="PA0" size="3">
           </div>
           <div class="pure-controls">
             <label for="LED_INV" class="pure-checkbox">
-              <input id="LED_INV" name="LED_INV" type="checkbox"> Inverted mode
+              <input id="LED_INV" name="LED_INV" type="checkbox" value="yes"> Inverted mode
             </label>
           </div>
         </div>
       </fieldset>
+      <div class="pure-u-1 button-div">
+        <button id="btn-build" class="pure-button pure-button-primary" onclick="onBuildClicked();">
+          <i id="btn-build-icon" class="icon-play"></i>
+          <span id="btn-build-txt">Build HEX file</span>
+        </button>
+        <button id="btn-gen-cfg" class="pure-button" onclick="onGenerateClicked();">
+          <i id="btn-gen-cfg-icon" class="icon-align-justify"></i>
+          <span id="btn-gen-cfg-txt">Generate makefile</span>
+        </button>
+      </div>
     </form>
+
+    <div class="pure-u-1 invisible" id="output-box"></div>
+
     </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="scripts.js"></script>
   </body>
 </html>
