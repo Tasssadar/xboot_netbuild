@@ -63,29 +63,18 @@ function onUseLEDChanged() {
     led_inv.disabled = !led_en.checked;
 }
 
-function initCalcs() {
+$(document).ready(function () {
     updateFreqCalc();
     onApiEnableChanged();
     onUseEntryDelayChanged();
     onUseEntryPinChanged();
     onUseUARTChanged();
     onUseLEDChanged();
-}
+});
 
-if(window.attachEvent) {
-    window.attachEvent('onload', initCalcs);
-} else {
-    if(window.onload) {
-        var curronload = window.onload;
-        var newonload = function() {
-            curronload();
-            initCalcs();
-        };
-        window.onload = newonload;
-    } else {
-        window.onload = initCalcs;
-    }
-}
+
+
+
 
 // http://stackoverflow.com/questions/1184624/convert-form-data-to-js-object-with-jquery
 $.fn.serializeObject = function()
@@ -125,6 +114,9 @@ scrollToMe: function () {
     var x = jQuery(this).offset().top;
     jQuery('html,body').animate({scrollTop: x}, 200);
 }});
+
+
+
 
 
 function onFormSubmit() {
