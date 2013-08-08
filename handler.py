@@ -51,7 +51,7 @@ def clearCache(req):
     for the_file in os.listdir(cachedir):
         file_path = os.path.join(cachedir, the_file)
         try:
-            if os.path.isfile(file_path):
+            if the_file[0] != '.' and os.path.isfile(file_path):
                 os.unlink(file_path)
         except Exception, e:
             print e

@@ -4,11 +4,11 @@ import string
 import re
 
 class BuildConfig:
-    data = {}
     allowed = set(string.ascii_letters + string.digits + '_' + '-')
     pinport_re = re.compile("^P[A-Z][0-9]$");
 
     def __init__(self, default_cfg_fname):
+        self.data = {}
         self.load(default_cfg_fname)
 
     def load(self, fname):
