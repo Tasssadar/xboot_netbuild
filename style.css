@@ -48,3 +48,10 @@ code, kbd, pre, samp {
 .error-bg pre {
     background: #FFE5E5;
 }
+
+.doc-link {
+    text-align: right;
+    font-size: 0.3em;
+    padding-top: 5px;
+    padding-right: 5px;
+}

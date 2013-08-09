@@ -7,43 +7,48 @@
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
   </head>
   <body>
-    <div class="content">
-    <h1>XBoot builder</h1>
-    <div class="pure-g">
-    <form id="xboot-cfg-form" class="pure-form pure-form-aligned" onsubmit="return onFormSubmit()" method="POST">
-      <fieldset>
-        <div class="pure-u-1-2 form-col">
-          <legend>General</legend>
-          <div class="pure-control-group">
-            <label for="MCU">Chip:</label>
-            <select id="MCU" name="MCU">
-              <option value="atxmega32a4">atxmega32a4</option>
-              <option value="atxmega16a4">atxmega16a4</option>
-            </select>
-          </div>
-          <div class="pure-control-group">
-            <label for="F_CPU">Chip's frequency</label>
-            <input type="number" id="F_CPU" name="F_CPU" value="2000000" onchange="updateFreqCalc()" required>
-            <label id="freqCalc" class="calc-info"></label>
-          </div>
-          <div class="pure-control-group" title="Watchdog resets the chip if bootloader gets stuck">
-            <label for="WATCHDOG_TIMEOUT">Watchdog timeout: </label>
-            <select id="WATCHDOG_TIMEOUT" name="WATCHDOG_TIMEOUT">
-              <option value="WDT_NONE">Disable</option>
-              <option value="WDT_PER_8CLK_gc">WDT_PER_8CLK_gc (~8ms)</option>
-              <option value="WDT_PER_16CLK_gc">WDT_PER_16CLK_gc (~16ms)</option>
-              <option value="WDT_PER_32CLK_gc">WDT_PER_32CLK_gc (~32ms)</option>
-              <option value="WDT_PER_64CLK_gc">WDT_PER_64CLK_gc (~64ms)</option>
-              <option value="WDT_PER_128CLK_gc">WDT_PER_128CLK_gc (~0.125s)</option>
-              <option value="WDT_PER_256CLK_gc">WDT_PER_256CLK_gc (~0.25s)</option>
-              <option value="WDT_PER_512CLK_gc">WDT_PER_512CLK_gc (~0.5s)</option>
-              <option value="WDT_PER_1KCLK_gc">WDT_PER_1KCLK_gc (~1.0s)</option>
-              <option value="WDT_PER_2KCLK_gc">WDT_PER_2KCLK_gc (~2.0s)</option>
-              <option value="WDT_PER_4KCLK_gc">WDT_PER_4KCLK_gc (~4.0s)</option>
-              <option value="WDT_PER_8KCLK_gc">WDT_PER_8KCLK_gc (~8.0s)</option>
-            </select>
-          </div>
-          <div class="pure-controls">
+    <div class="content pure-g">
+      <div class="pure-u-1-2">
+        <h1>XBoot builder</h1>
+      </div>
+      <div class="pure-u-1-2 doc-link">
+        <a href="https://github.com/Tasssadar/xboot#readme">XBoot documentation</a>
+      </div>
+
+      <form id="xboot-cfg-form" class="pure-form pure-form-aligned" onsubmit="return onFormSubmit()" method="POST">
+        <fieldset>
+          <div class="pure-u-1-2 form-col">
+            <legend>General</legend>
+            <div class="pure-control-group">
+              <label for="MCU">Chip:</label>
+              <select id="MCU" name="MCU">
+                <option value="atxmega32a4">atxmega32a4</option>
+                <option value="atxmega16a4">atxmega16a4</option>
+              </select>
+            </div>
+            <div class="pure-control-group">
+              <label for="F_CPU">Chip's frequency</label>
+              <input type="number" id="F_CPU" name="F_CPU" value="2000000" onchange="updateFreqCalc()" required>
+              <label id="freqCalc" class="calc-info"></label>
+            </div>
+            <div class="pure-control-group" title="Watchdog resets the chip if bootloader gets stuck">
+              <label for="WATCHDOG_TIMEOUT">Watchdog timeout: </label>
+              <select id="WATCHDOG_TIMEOUT" name="WATCHDOG_TIMEOUT">
+                <option value="WDT_NONE">Disable</option>
+                <option value="WDT_PER_8CLK_gc">WDT_PER_8CLK_gc (~8ms)</option>
+                <option value="WDT_PER_16CLK_gc">WDT_PER_16CLK_gc (~16ms)</option>
+                <option value="WDT_PER_32CLK_gc">WDT_PER_32CLK_gc (~32ms)</option>
+                <option value="WDT_PER_64CLK_gc">WDT_PER_64CLK_gc (~64ms)</option>
+                <option value="WDT_PER_128CLK_gc">WDT_PER_128CLK_gc (~0.125s)</option>
+                <option value="WDT_PER_256CLK_gc">WDT_PER_256CLK_gc (~0.25s)</option>
+                <option value="WDT_PER_512CLK_gc">WDT_PER_512CLK_gc (~0.5s)</option>
+                <option value="WDT_PER_1KCLK_gc">WDT_PER_1KCLK_gc (~1.0s)</option>
+                <option value="WDT_PER_2KCLK_gc">WDT_PER_2KCLK_gc (~2.0s)</option>
+                <option value="WDT_PER_4KCLK_gc">WDT_PER_4KCLK_gc (~4.0s)</option>
+                <option value="WDT_PER_8KCLK_gc">WDT_PER_8KCLK_gc (~8.0s)</option>
+              </select>
+            </div>
+            <div class="pure-controls">
               <label for="LOCK_SPM_ON_EXIT" class="pure-checkbox" title="Locks self-programming instructions on bootloader exit.">
                 <input id="LOCK_SPM_ON_EXIT" name="LOCK_SPM_ON_EXIT" type="checkbox" value="yes"> Lock SPM instructions on bootloader exit
               </label>
@@ -68,10 +73,10 @@
               <label for="ENABLE_CRC_SUPPORT" class="pure-checkbox" title="Enables commands for computing the CRC of various sections of Flash memory.">
                 <input id="ENABLE_CRC_SUPPORT" name="ENABLE_CRC_SUPPORT" type="checkbox" value="yes" checked> Enable commands for computing flash's CRC
               </label>
-          </div>
+            </div>
 
-          <legend>API support</legend>
-          <div class="pure-controls">
+            <legend>API support</legend>
+            <div class="pure-controls">
               <label for="ENABLE_API" class="pure-checkbox">
                 <input id="ENABLE_API" name="ENABLE_API" type="checkbox" value="yes" onchange="onApiEnableChanged()"> Enable xboot API
               </label>
@@ -84,126 +89,126 @@
               <label for="ENABLE_API_FIRMWARE_UPDATE" class="pure-checkbox">
                 <input id="ENABLE_API_FIRMWARE_UPDATE" name="ENABLE_API_FIRMWARE_UPDATE" type="checkbox" value="yes"> Enable firmware update APIs
               </label>
-          </div>
+            </div>
 
-          <legend>Entry delay</legend>
-          <p>Wait certain amount of time for entry conditions after bootloader is started.
-          If this function is disabled, XBoot will check for entry triggers only once.</p>
-          <div class="pure-control-group">
-            <label for="USE_ENTER_DELAY">Use enter delay:</label>
-            <label for="USE_ENTER_DELAY" class="pure-checkbox" style="text-align: left">
-              <input id="USE_ENTER_DELAY" name="USE_ENTER_DELAY" type="checkbox" value="yes" onchange="onUseEntryDelayChanged()"> Enable
-            </label>
-          </div>
-          <div class="pure-control-group">
-            <label for="ENTER_BLINK_COUNT">Delay loop iterations:</label>
-            <input type="number" id="ENTER_BLINK_COUNT" name="ENTER_BLINK_COUNT" value="3" required>
-          </div>
-          <div class="pure-control-group">
-            <label for="ENTER_BLINK_WAIT">Wait cycles per interation:</label>
-            <input type="number" id="ENTER_BLINK_WAIT" name="ENTER_BLINK_WAIT" value="30000" required>
-          </div>
-        </div>
-
-        <div class="pure-u-1-2 form-col">
-          <legend>Entry pin</legend>
-          <div class="pure-control-group">
-            <label for="USE_ENTER_PIN">Enter Xboot by pin:</label>
-            <label for="USE_ENTER_PIN" class="pure-checkbox" style="text-align: left">
-              <input id="USE_ENTER_PIN" name="USE_ENTER_PIN" type="checkbox" value="yes" onchange="onUseEntryPinChanged()"> Enable
-            </label>
-          </div>
-          <div class="pure-control-group">
-            <label for="ENTER_PIN_PORT">Pin:</label>
-            <input id="ENTER_PIN_PORT" name="pinport-ENTER-PORT_NAME-PIN" value="PC0" size="3">
-          </div>
-          <div class="pure-control-group">
-            <label>Pin state:</label>
-            <label>
-              <label for="ENTER_PIN_STATE_LOW" class="pure-radio" style="text-align: left">
-                <input id="ENTER_PIN_STATE_LOW" name="ENTER_PIN_STATE" type="radio" value="0" checked> Low
+            <legend>Entry delay</legend>
+            <p>Wait certain amount of time for entry conditions after bootloader is started.
+            If this function is disabled, XBoot will check for entry triggers only once.</p>
+            <div class="pure-control-group">
+              <label for="USE_ENTER_DELAY">Use enter delay:</label>
+              <label for="USE_ENTER_DELAY" class="pure-checkbox" style="text-align: left">
+                <input id="USE_ENTER_DELAY" name="USE_ENTER_DELAY" type="checkbox" value="yes" onchange="onUseEntryDelayChanged()"> Enable
               </label>
-              <label for="ENTER_PIN_STATE_HIGH" class="pure-radio" style="text-align: left">
-                <input id="ENTER_PIN_STATE_HIGH" name="ENTER_PIN_STATE" type="radio" value="1"> High
+            </div>
+            <div class="pure-control-group">
+              <label for="ENTER_BLINK_COUNT">Delay loop iterations:</label>
+              <input type="number" id="ENTER_BLINK_COUNT" name="ENTER_BLINK_COUNT" value="3" required>
+            </div>
+            <div class="pure-control-group">
+              <label for="ENTER_BLINK_WAIT">Wait cycles per interation:</label>
+              <input type="number" id="ENTER_BLINK_WAIT" name="ENTER_BLINK_WAIT" value="30000" required>
+            </div>
+          </div>
+
+          <div class="pure-u-1-2 form-col">
+            <legend>Entry pin</legend>
+            <div class="pure-control-group">
+              <label for="USE_ENTER_PIN">Enter Xboot by pin:</label>
+              <label for="USE_ENTER_PIN" class="pure-checkbox" style="text-align: left">
+                <input id="USE_ENTER_PIN" name="USE_ENTER_PIN" type="checkbox" value="yes" onchange="onUseEntryPinChanged()"> Enable
               </label>
-            </label>
-          </div>
-          <div class="pure-control-group">
-            <label for="ENTER_PIN_PUEN">Pull-up resistor on the pin:</label>
-            <label for="ENTER_PIN_PUEN" class="pure-checkbox" style="text-align: left">
-              <input id="ENTER_PIN_PUEN" name="ENTER_PIN_PUEN" type="checkbox" value="yes" checked> Enable
-            </label>
-          </div>
+            </div>
+            <div class="pure-control-group">
+              <label for="ENTER_PIN_PORT">Pin:</label>
+              <input id="ENTER_PIN_PORT" name="pinport-ENTER-PORT_NAME-PIN" value="PC0" size="3">
+            </div>
+            <div class="pure-control-group">
+              <label>Pin state:</label>
+              <label>
+                <label for="ENTER_PIN_STATE_LOW" class="pure-radio" style="text-align: left">
+                  <input id="ENTER_PIN_STATE_LOW" name="ENTER_PIN_STATE" type="radio" value="0" checked> Low
+                </label>
+                <label for="ENTER_PIN_STATE_HIGH" class="pure-radio" style="text-align: left">
+                  <input id="ENTER_PIN_STATE_HIGH" name="ENTER_PIN_STATE" type="radio" value="1"> High
+                </label>
+              </label>
+            </div>
+            <div class="pure-control-group">
+              <label for="ENTER_PIN_PUEN">Pull-up resistor on the pin:</label>
+              <label for="ENTER_PIN_PUEN" class="pure-checkbox" style="text-align: left">
+                <input id="ENTER_PIN_PUEN" name="ENTER_PIN_PUEN" type="checkbox" value="yes" checked> Enable
+              </label>
+            </div>
 
-          <legend>UART configuration</legend>
-          <div class="pure-control-group">
-            <label for="USE_UART">Use UART communication:</label>
-            <label for="USE_UART" class="pure-checkbox" style="text-align: left">
-              <input id="USE_UART" name="USE_UART" type="checkbox" value="yes" onchange="onUseUARTChanged()" checked> Enable
-            </label>
-          </div>
-          <div class="pure-control-group">
-            <label for="UART_RX_PUEN">Pull-up resistor for RX pin:</label>
-            <label for="UART_RX_PUEN" class="pure-checkbox" style="text-align: left">
-              <input id="UART_RX_PUEN" name="UART_RX_PUEN" type="checkbox" value="yes" checked> Enable
-            </label>
-          </div>
-          <div class="pure-control-group">
-            <label for="UART_BAUD_RATE">Baud rate:</label>
-            <input type="number" id="UART_BAUD_RATE" name="UART_BAUD_RATE" value="115200" required>
-          </div>
-          <div class="pure-control-group">
-            <label for="UART_PORT_NAME">Port (XMega only):</label>
-            <input id="UART_PORT_NAME" name="UART_PORT_NAME" value="C" size="1" required>
-          </div>
-          <div class="pure-control-group">
-            <label for="UART_NUMBER">UART number:</label>
-            <input type="number" id="UART_NUMBER" name="UART_NUMBER" value="0" required>
-          </div>
-          <div class="pure-control-group">
-            <label for="USE_ENTER_UART">Trigger bootloader:</label>
-            <label for="USE_ENTER_UART" class="pure-checkbox" style="text-align: left">
-              <input id="USE_ENTER_UART" name="USE_ENTER_UART" type="checkbox" value="yes" onchange="onUseUARTChanged()" checked> Enable
-            </label>
-          </div>
-          <div class="pure-control-group">
-            <label for="ENTER_UART_NEED_SYNC">Require 0x1B char to trigger:</label>
-            <label for="ENTER_UART_NEED_SYNC" class="pure-checkbox" style="text-align: left">
-              <input id="ENTER_UART_NEED_SYNC" name="ENTER_UART_NEED_SYNC" type="checkbox" value="yes"> Enable
-            </label>
-          </div>
+            <legend>UART configuration</legend>
+            <div class="pure-control-group">
+              <label for="USE_UART">Use UART communication:</label>
+              <label for="USE_UART" class="pure-checkbox" style="text-align: left">
+                <input id="USE_UART" name="USE_UART" type="checkbox" value="yes" onchange="onUseUARTChanged()" checked> Enable
+              </label>
+            </div>
+            <div class="pure-control-group">
+              <label for="UART_RX_PUEN">Pull-up resistor for RX pin:</label>
+              <label for="UART_RX_PUEN" class="pure-checkbox" style="text-align: left">
+                <input id="UART_RX_PUEN" name="UART_RX_PUEN" type="checkbox" value="yes" checked> Enable
+              </label>
+            </div>
+            <div class="pure-control-group">
+              <label for="UART_BAUD_RATE">Baud rate:</label>
+              <input type="number" id="UART_BAUD_RATE" name="UART_BAUD_RATE" value="115200" required>
+            </div>
+            <div class="pure-control-group">
+              <label for="UART_PORT_NAME">Port (XMega only):</label>
+              <input id="UART_PORT_NAME" name="UART_PORT_NAME" value="C" size="1" required>
+            </div>
+            <div class="pure-control-group">
+              <label for="UART_NUMBER">UART number:</label>
+              <input type="number" id="UART_NUMBER" name="UART_NUMBER" value="0" required>
+            </div>
+            <div class="pure-control-group">
+              <label for="USE_ENTER_UART">Trigger bootloader:</label>
+              <label for="USE_ENTER_UART" class="pure-checkbox" style="text-align: left">
+                <input id="USE_ENTER_UART" name="USE_ENTER_UART" type="checkbox" value="yes" onchange="onUseUARTChanged()" checked> Enable
+              </label>
+            </div>
+            <div class="pure-control-group">
+              <label for="ENTER_UART_NEED_SYNC">Require 0x1B char to trigger:</label>
+              <label for="ENTER_UART_NEED_SYNC" class="pure-checkbox" style="text-align: left">
+                <input id="ENTER_UART_NEED_SYNC" name="ENTER_UART_NEED_SYNC" type="checkbox" value="yes"> Enable
+              </label>
+            </div>
 
-          <legend>Status LED</legend>
-          <div class="pure-control-group">
-            <label for="USE_LED">Use status LED:</label>
-            <label for="USE_LED" class="pure-checkbox" style="text-align: left">
-              <input id="USE_LED" name="USE_LED" type="checkbox" value="yes" onchange="onUseLEDChanged()"> Enable
-            </label>
+            <legend>Status LED</legend>
+            <div class="pure-control-group">
+              <label for="USE_LED">Use status LED:</label>
+              <label for="USE_LED" class="pure-checkbox" style="text-align: left">
+                <input id="USE_LED" name="USE_LED" type="checkbox" value="yes" onchange="onUseLEDChanged()"> Enable
+              </label>
+            </div>
+            <div class="pure-control-group">
+              <label for="LED_PORT_PIN">LED pin and port:</label>
+              <input id="LED_PORT_PIN" name="pinport-LED-PORT_NAME-PIN" value="PA0" size="3">
+            </div>
+            <div class="pure-controls">
+              <label for="LED_INV" class="pure-checkbox">
+                <input id="LED_INV" name="LED_INV" type="checkbox" value="yes"> Inverted mode
+              </label>
+            </div>
           </div>
-          <div class="pure-control-group">
-            <label for="LED_PORT_PIN">LED pin and port:</label>
-            <input id="LED_PORT_PIN" name="pinport-LED-PORT_NAME-PIN" value="PA0" size="3">
-          </div>
-          <div class="pure-controls">
-            <label for="LED_INV" class="pure-checkbox">
-              <input id="LED_INV" name="LED_INV" type="checkbox" value="yes"> Inverted mode
-            </label>
-          </div>
+        </fieldset>
+        <div class="pure-u-1 button-div">
+          <button id="btn-build" class="pure-button pure-button-primary" onclick="onBuildClicked();">
+            <i id="btn-build-icon" class="icon-play"></i>
+            <span id="btn-build-txt">Build HEX file</span>
+          </button>
+          <button id="btn-gen-cfg" class="pure-button" onclick="onGenerateClicked();">
+            <i id="btn-gen-cfg-icon" class="icon-align-justify"></i>
+            <span id="btn-gen-cfg-txt">Generate makefile</span>
+          </button>
         </div>
-      </fieldset>
-      <div class="pure-u-1 button-div">
-        <button id="btn-build" class="pure-button pure-button-primary" onclick="onBuildClicked();">
-          <i id="btn-build-icon" class="icon-play"></i>
-          <span id="btn-build-txt">Build HEX file</span>
-        </button>
-        <button id="btn-gen-cfg" class="pure-button" onclick="onGenerateClicked();">
-          <i id="btn-gen-cfg-icon" class="icon-align-justify"></i>
-          <span id="btn-gen-cfg-txt">Generate makefile</span>
-        </button>
-      </div>
-    </form>
+      </form>
 
-    <div class="pure-u-1 invisible" id="output-box"></div>
+      <div class="pure-u-1 invisible" id="output-box"></div>
 
     </div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
