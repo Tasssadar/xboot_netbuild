@@ -1,6 +1,6 @@
 # XBoot netbuild
 A simple web builder for [XBoot bootloader](https://github.com/alexforencich/xboot)
-for XMega and ATMega chips. It does not contain all the opions nor chips yet, but works.
+for XMega and ATMega chips. It doesn't contain all the options nor chips yet, but works.
 
 ### Requirements
 * Apache
@@ -11,7 +11,7 @@ for XMega and ATMega chips. It does not contain all the opions nor chips yet, bu
 * avr-libc
 * binutils-avr
 
-### Instalation
+### Installation
     git clone https://github.com/Tasssadar/xboot_netbuild.git
     cd xboot_netbuild
     git submodule update --init
