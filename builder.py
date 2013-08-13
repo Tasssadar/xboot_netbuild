@@ -10,24 +10,14 @@ import tempfile, shutil, os.path
 #    stdout, stderr = p.communicate()
 #    return p.returncode, stdout, stderr
 
-def get_source(srcdir, fname):
-    with open(os.path.join(srcdir, fname), "r") as f:
-        return f.read()
-
-def get_sources(srcdir):
-    res = {}
-    for fn in [ "Makefile", "config.h.mk" ]:
-        res[fn] = get_source(srcdir, fn)
-    return res
-
 def build(basedir, cachefile, conf):
     tmpdir = tempfile.mkdtemp()
     srcdir = os.path.join(basedir, "xboot")
     try:
-        sources = get_sources(srcdir)
-        for fname, content in sources.iteritems():
-            with open(os.path.join(tmpdir, fname), 'w') as f:
-                f.write(content)
+        for fn in [ "Makefile", "config.h.mk" ]:
+            with open(os.path.join(srcdir, fn), 'r') as f_in:
+                with open(os.path.join(tmpdir, fn), 'w') as f_out:
+                    f_out.write(f_in.read())
 
         conf.setSrcDir(srcdir);
         conf.writeToFile(os.path.join(tmpdir, "config.mk"))
